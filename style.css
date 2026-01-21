@@ -9,3 +9,12 @@ body {
   background: #0f0f0f;
   color: white;
 }
+.hero {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
