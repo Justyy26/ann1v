@@ -34,6 +34,21 @@ body {
 
 /* CAROUSEL */
 .carousel {
+
+  .hero p {
+  opacity: 0.8;
+  font-size: 1.1rem;
+}
+
+.months {
+  margin-top: 40px;
+}
+
+.letter p {
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
   display: flex;
   gap: 15px;
   overflow-x: auto;
