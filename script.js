@@ -357,5 +357,3 @@ toggleBtn.addEventListener("click", () => {
     toggleBtn.innerText = "🎵 Play Music";
   }
 });
-
-});
