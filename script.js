@@ -5,38 +5,55 @@ function loadMonth(monthName, shortName, totalPhotos) {
   if (container.dataset.loaded === "true") return;
   container.dataset.loaded = "true";
 
-  let i = 1;
-
-  function loadNext() {
-
-    if (i > totalPhotos) return;
+  for (let i = 1; i <= totalPhotos; i++) {
 
     const img = document.createElement("img");
+
+    img.dataset.srcJpg = `images/${monthName}/${shortName}${i}.jpg`;
+    img.dataset.srcJpeg = `images/${monthName}/${shortName}${i}.jpeg`;
+    img.dataset.srcPng = `images/${monthName}/${shortName}${i}.png`;
+
     img.loading = "lazy";
 
-    img.src = `images/${monthName}/${shortName}${i}.jpg`;
-
-    img.onerror = () => {
-      img.onerror = () => {
-        img.src = `images/${monthName}/${shortName}${i}.png`;
-      };
-
-      img.src = `images/${monthName}/${shortName}${i}.jpeg`;
-    };
-
     container.appendChild(img);
-
-    i++;
-
-    // small delay prevents rate limit
-    setTimeout(loadNext, 120);
   }
 
-  loadNext();
+  lazyLoadImages(container);
 }
 
-/* Intersection Observer */
-const observer = new IntersectionObserver(entries => {
+function lazyLoadImages(container) {
+
+  const imgObserver = new IntersectionObserver(entries => {
+
+    entries.forEach(entry => {
+
+      if (entry.isIntersecting) {
+
+        const img = entry.target;
+
+        img.src = img.dataset.srcJpg;
+
+        img.onerror = () => {
+          img.onerror = () => {
+            img.src = img.dataset.srcPng;
+          };
+          img.src = img.dataset.srcJpeg;
+        };
+
+        imgObserver.unobserve(img);
+      }
+
+    });
+
+  }, { root: container, threshold: 0.1 });
+
+  container.querySelectorAll("img").forEach(img => {
+    imgObserver.observe(img);
+  });
+}
+
+/* Month Observer */
+const monthObserver = new IntersectionObserver(entries => {
 
   entries.forEach(entry => {
 
@@ -58,7 +75,7 @@ const observer = new IntersectionObserver(entries => {
         case "december": loadMonth("december","dec",14); break;
       }
 
-      observer.unobserve(entry.target);
+      monthObserver.unobserve(entry.target);
     }
 
   });
@@ -66,5 +83,5 @@ const observer = new IntersectionObserver(entries => {
 }, { threshold: 0.2 });
 
 document.querySelectorAll(".carousel").forEach(section => {
-  observer.observe(section);
+  monthObserver.observe(section);
 });
