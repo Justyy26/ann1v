@@ -18,7 +18,12 @@ front.className = "flip-front";
 
 const back = document.createElement("div");
 back.className = "flip-back";
-back.innerText = "Write your note here..."; // You will customize later
+back.innerText = notes[`${monthName}${i}`] || "";
+const notes = {
+  february1: "Our first date this month",
+  february2: "That time we laughed so hard",
+};
+
 
 const img = document.createElement("img");
 
