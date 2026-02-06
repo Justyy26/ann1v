@@ -117,3 +117,54 @@ const monthObserver = new IntersectionObserver(entries => {
 document.querySelectorAll(".carousel").forEach(section => {
   monthObserver.observe(section);
 });
+
+function lazyLoadImages(container) {
+
+  const imgObserver = new IntersectionObserver(entries => {
+
+    entries.forEach(entry => {
+
+      if (entry.isIntersecting) {
+
+        const img = entry.target;
+
+        img.src = img.dataset.srcJpg;
+
+        img.onerror = () => {
+          img.onerror = () => {
+            img.src = img.dataset.srcPng;
+          };
+          img.src = img.dataset.srcJpeg;
+        };
+
+        imgObserver.unobserve(img);
+      }
+
+    });
+
+  }, { root: container, threshold: 0.1 });
+
+  container.querySelectorAll("img").forEach(img => {
+    imgObserver.observe(img);
+  });
+}
+
+function openViewer(src) {
+
+  const overlay = document.createElement("div");
+  overlay.className = "viewer-overlay";
+
+  const img = document.createElement("img");
+  img.src = src;
+
+  overlay.appendChild(img);
+
+  overlay.addEventListener("click", () => {
+    overlay.remove();
+  });
+
+  document.body.appendChild(overlay);
+}
+
+
+lazyLoadImages(container);
