@@ -150,3 +150,22 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+#musicToggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 25px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  z-index: 9999;
+  transition: 0.3s;
+}
+
+#musicToggle:hover {
+  transform: scale(1.05);
+}
