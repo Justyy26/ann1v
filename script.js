@@ -18,34 +18,26 @@ front.className = "flip-front";
 
 const back = document.createElement("div");
 back.className = "flip-back";
-back.innerText = notes[`${monthName}${i}`] || "";
-const notes = {
-  february1: "Our first date this month",
-  february2: "That time we laughed so hard",
-};
-
+back.innerText = "Write your note here...";
 
 const img = document.createElement("img");
 
-img.src = `images/${monthName}/${shortName}${i}.jpg`;
-img.loading = "lazy";
+/* IMPORTANT → Lazy loading setup */
+img.dataset.srcJpg = `images/${monthName}/${shortName}${i}.jpg`;
+img.dataset.srcJpeg = `images/${monthName}/${shortName}${i}.jpeg`;
+img.dataset.srcPng = `images/${monthName}/${shortName}${i}.png`;
 
-img.onerror = () => {
-  img.onerror = () => {
-    img.src = `images/${monthName}/${shortName}${i}.png`;
-  };
-  img.src = `images/${monthName}/${shortName}${i}.jpeg`;
-};
+img.loading = "lazy";
 
 /* CLICK → flip */
 card.addEventListener("click", () => {
   card.classList.toggle("flipped");
 });
 
-/* DOUBLE CLICK → enlarge */
+/* DOUBLE CLICK → Messenger-style viewer */
 img.addEventListener("dblclick", (e) => {
   e.stopPropagation();
-  img.classList.toggle("zoomed");
+  openViewer(img.src);
 });
 
 front.appendChild(img);
@@ -54,6 +46,7 @@ inner.appendChild(back);
 card.appendChild(inner);
 
 container.appendChild(card);
+
 
   }
 
