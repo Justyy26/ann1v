@@ -1,9 +1,8 @@
 function loadMonth(monthName, shortName) {
 
   const container = document.getElementById(monthName);
-  let i = 1;
 
-  function tryLoad() {
+  for (let i = 1; i <= 200; i++) { // max photos per month
 
     const img = document.createElement("img");
     img.loading = "lazy";
@@ -19,9 +18,7 @@ function loadMonth(monthName, shortName) {
         img.src = `images/${monthName}/${shortName}${i}.png`;
 
         img.onerror = () => {
-          // STOP when no image exists
-          img.remove();
-          return;
+          img.remove(); // skip missing numbers
         };
 
       };
@@ -29,21 +26,15 @@ function loadMonth(monthName, shortName) {
     };
 
     container.appendChild(img);
-    i++;
-
-    // keep trying next photo
-    setTimeout(tryLoad, 10);
   }
-
-  tryLoad();
 }
 
-/* AUTO LOAD ALL MONTHS */
+/* LOAD MONTHS */
 loadMonth("february", "feb");
 loadMonth("march", "mar");
 loadMonth("april", "apr");
 loadMonth("may", "may");
-loadMonth("june", "june");
+loadMonth("june", "june"); // FIXED
 loadMonth("july", "jul");
 loadMonth("august", "aug");
 loadMonth("september", "sep");
