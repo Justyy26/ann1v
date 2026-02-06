@@ -43,7 +43,7 @@ loadMonth("february", "feb");
 loadMonth("march", "mar");
 loadMonth("april", "apr");
 loadMonth("may", "may");
-loadMonth("june", "jun");
+loadMonth("june", "june");
 loadMonth("july", "jul");
 loadMonth("august", "aug");
 loadMonth("september", "sep");
