@@ -348,12 +348,20 @@ monthSections.forEach(section => {
 const music = document.getElementById("bgMusic");
 const toggleBtn = document.getElementById("musicToggle");
 
-toggleBtn.addEventListener("click", () => {
-  if (music.paused) {
-    music.play();
-    toggleBtn.innerText = "🔇 Stop Music";
-  } else {
-    music.pause();
-    toggleBtn.innerText = "🎵 Play Music";
+let isPlaying = false;
+
+toggleBtn.addEventListener("click", async () => {
+  try {
+    if (!isPlaying) {
+      await music.play();
+      toggleBtn.innerText = "🔇 Stop Music";
+      isPlaying = true;
+    } else {
+      music.pause();
+      toggleBtn.innerText = "🎵 Play Music";
+      isPlaying = false;
+    }
+  } catch (err) {
+    console.error("Music play failed:", err);
   }
 });
