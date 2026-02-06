@@ -2,6 +2,10 @@ function loadMonth(monthName, shortName, totalPhotos) {
 
   const container = document.getElementById(monthName);
 
+  if (container.dataset.loaded === "true") return;
+
+  container.dataset.loaded = "true";
+
   for (let i = 1; i <= totalPhotos; i++) {
 
     const img = document.createElement("img");
@@ -21,15 +25,36 @@ function loadMonth(monthName, shortName, totalPhotos) {
   }
 }
 
-/* MONTH PHOTO COUNTS */
-loadMonth("february", "feb", 12);
-loadMonth("march", "mar", 12);
-loadMonth("april", "apr", 45);
-loadMonth("may", "may", 21);
-loadMonth("june", "june", 23);
-loadMonth("july", "jul", 19);
-loadMonth("august", "aug", 19);
-loadMonth("september", "sep", 17);
-loadMonth("october", "oct", 25);
-loadMonth("november", "nov", 60);
-loadMonth("december", "dec", 14);
+/* Intersection Observer */
+const observer = new IntersectionObserver(entries => {
+
+  entries.forEach(entry => {
+
+    if (entry.isIntersecting) {
+
+      const id = entry.target.id;
+
+      switch(id) {
+        case "february": loadMonth("february","feb",12); break;
+        case "march": loadMonth("march","mar",12); break;
+        case "april": loadMonth("april","apr",45); break;
+        case "may": loadMonth("may","may",21); break;
+        case "june": loadMonth("june","june",23); break;
+        case "july": loadMonth("july","jul",19); break;
+        case "august": loadMonth("august","aug",19); break;
+        case "september": loadMonth("september","sep",17); break;
+        case "october": loadMonth("october","oct",25); break;
+        case "november": loadMonth("november","nov",60); break;
+        case "december": loadMonth("december","dec",14); break;
+      }
+
+      observer.unobserve(entry.target);
+    }
+
+  });
+
+}, { threshold: 0.2 });
+
+document.querySelectorAll(".carousel").forEach(section => {
+  observer.observe(section);
+});
