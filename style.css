@@ -7,8 +7,8 @@
 
 /* GLOBAL */
 body {
-  background: #ffd6e8; /* pastel pink */
-  color: #4a2c3a; /* soft dark pink text */
+  background: #ffeaf3; /* soft pastel pink */
+  color: #5a3d47; /* soft readable dark pink */
   font-family: Arial, sans-serif;
 }
 
@@ -93,7 +93,7 @@ body {
 
 /* NOTE BACK */
 .flip-back {
-  background: #ffb6d5;
+  background: #ffd6e8;
   color: white;
   display: flex;
   align-items: center;
