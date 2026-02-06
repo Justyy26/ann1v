@@ -344,3 +344,20 @@ const monthObserver = new IntersectionObserver(entries => {
 monthSections.forEach(section => {
   monthObserver.observe(section);
 });
+
+const music = document.getElementById("bgMusic");
+const toggleBtn = document.getElementById("musicToggle");
+
+let isPlaying = false;
+
+toggleBtn.addEventListener("click", () => {
+  if (!isPlaying) {
+    music.play();
+    toggleBtn.innerText = "🔇 Stop Music";
+    isPlaying = true;
+  } else {
+    music.pause();
+    toggleBtn.innerText = "🎵 Play Music";
+    isPlaying = false;
+  }
+});
