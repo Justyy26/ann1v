@@ -55,6 +55,16 @@ h1, h2 {
   scroll-behavior: smooth;
 }
 
+  .carousel {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 12px;
+  align-items: center;
+}
+
 .carousel::-webkit-scrollbar {
   height: 6px;
 }
@@ -74,6 +84,10 @@ h1, h2 {
   perspective: 1000px;
   flex-shrink: 0;
   position: relative;
+}
+
+.flip-card {
+  flex: 0 0 auto;
 }
 
 .flip-inner {
