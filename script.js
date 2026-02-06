@@ -7,15 +7,49 @@ function loadMonth(monthName, shortName, totalPhotos) {
 
   for (let i = 1; i <= totalPhotos; i++) {
 
-    const img = document.createElement("img");
+    const card = document.createElement("div");
+card.className = "flip-card";
 
-    img.dataset.srcJpg = `images/${monthName}/${shortName}${i}.jpg`;
-    img.dataset.srcJpeg = `images/${monthName}/${shortName}${i}.jpeg`;
-    img.dataset.srcPng = `images/${monthName}/${shortName}${i}.png`;
+const inner = document.createElement("div");
+inner.className = "flip-inner";
 
-    img.loading = "lazy";
+const front = document.createElement("div");
+front.className = "flip-front";
 
-    container.appendChild(img);
+const back = document.createElement("div");
+back.className = "flip-back";
+back.innerText = "Write your note here..."; // You will customize later
+
+const img = document.createElement("img");
+
+img.src = `images/${monthName}/${shortName}${i}.jpg`;
+img.loading = "lazy";
+
+img.onerror = () => {
+  img.onerror = () => {
+    img.src = `images/${monthName}/${shortName}${i}.png`;
+  };
+  img.src = `images/${monthName}/${shortName}${i}.jpeg`;
+};
+
+/* CLICK → flip */
+card.addEventListener("click", () => {
+  card.classList.toggle("flipped");
+});
+
+/* DOUBLE CLICK → enlarge */
+img.addEventListener("dblclick", (e) => {
+  e.stopPropagation();
+  img.classList.toggle("zoomed");
+});
+
+front.appendChild(img);
+inner.appendChild(front);
+inner.appendChild(back);
+card.appendChild(inner);
+
+container.appendChild(card);
+
   }
 
   lazyLoadImages(container);
