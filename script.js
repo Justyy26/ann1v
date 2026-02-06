@@ -3,10 +3,13 @@ function loadMonth(monthName, shortName, totalPhotos) {
   const container = document.getElementById(monthName);
 
   if (container.dataset.loaded === "true") return;
-
   container.dataset.loaded = "true";
 
-  for (let i = 1; i <= totalPhotos; i++) {
+  let i = 1;
+
+  function loadNext() {
+
+    if (i > totalPhotos) return;
 
     const img = document.createElement("img");
     img.loading = "lazy";
@@ -22,7 +25,14 @@ function loadMonth(monthName, shortName, totalPhotos) {
     };
 
     container.appendChild(img);
+
+    i++;
+
+    // small delay prevents rate limit
+    setTimeout(loadNext, 120);
   }
+
+  loadNext();
 }
 
 /* Intersection Observer */
