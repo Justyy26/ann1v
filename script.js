@@ -1,37 +1,52 @@
-function loadMonth(monthName, shortName, totalPhotos) {
-  const container = document.getElementById(monthName);
+function loadMonth(monthName, shortName) {
 
-  for (let i = 1; i <= totalPhotos; i++) {
+  const container = document.getElementById(monthName);
+  let i = 1;
+
+  function tryLoad() {
 
     const img = document.createElement("img");
     img.loading = "lazy";
 
-    // Try JPG first
     img.src = `images/${monthName}/${shortName}${i}.jpg`;
 
-    // If JPG fails → try JPEG
     img.onerror = () => {
-      img.onerror = () => {
-        // If JPEG fails → try PNG
-        img.src = `images/${monthName}/${shortName}${i}.png`;
-      };
 
       img.src = `images/${monthName}/${shortName}${i}.jpeg`;
+
+      img.onerror = () => {
+
+        img.src = `images/${monthName}/${shortName}${i}.png`;
+
+        img.onerror = () => {
+          // STOP when no image exists
+          img.remove();
+          return;
+        };
+
+      };
+
     };
 
     container.appendChild(img);
+    i++;
+
+    // keep trying next photo
+    setTimeout(tryLoad, 10);
   }
+
+  tryLoad();
 }
 
-/* CHANGE PHOTO COUNTS HERE */
-loadMonth("february", "feb", 12);
-loadMonth("march", "mar", 20);
-loadMonth("april", "apr", 20);
-loadMonth("may", "may", 20);
-loadMonth("june", "jun", 20);
-loadMonth("july", "jul", 20);
-loadMonth("august", "aug", 20);
-loadMonth("september", "sep", 20);
-loadMonth("october", "oct", 20);
-loadMonth("november", "nov", 20);
-loadMonth("december", "dec", 20);
+/* AUTO LOAD ALL MONTHS */
+loadMonth("february", "feb");
+loadMonth("march", "mar");
+loadMonth("april", "apr");
+loadMonth("may", "may");
+loadMonth("june", "jun");
+loadMonth("july", "jul");
+loadMonth("august", "aug");
+loadMonth("september", "sep");
+loadMonth("october", "oct");
+loadMonth("november", "nov");
+loadMonth("december", "dec");
