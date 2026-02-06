@@ -254,7 +254,8 @@ function loadMonth(monthName, shortName, totalPhotos) {
 
     const back = document.createElement("div");
     back.className = "flip-back";
-    back.innerText = "Add your note here...";
+    back.innerText = notes[`${monthName}${i}`] || "";
+
 
     const img = document.createElement("img");
 
