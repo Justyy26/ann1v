@@ -45,15 +45,43 @@ function loadMonth(monthName, shortName, totalPhotos) {
     };
 
     /* Flip card */
-    card.addEventListener("click", () => {
-      card.classList.toggle("flipped");
-    });
+    let holdTimer;
 
-    /* Fullscreen viewer */
-    img.addEventListener("dblclick", (e) => {
-      e.stopPropagation();
-      openViewer(img.src);
-    });
+/* HOLD → Viewer */
+img.addEventListener("mousedown", (e) => {
+  e.stopPropagation();
+
+  holdTimer = setTimeout(() => {
+    openViewer(img.src);
+  }, 800); // 0.8 second hold
+});
+
+img.addEventListener("mouseup", () => {
+  clearTimeout(holdTimer);
+});
+
+img.addEventListener("mouseleave", () => {
+  clearTimeout(holdTimer);
+});
+
+/* MOBILE HOLD */
+img.addEventListener("touchstart", (e) => {
+  e.stopPropagation();
+
+  holdTimer = setTimeout(() => {
+    openViewer(img.src);
+  }, 800);
+});
+
+img.addEventListener("touchend", () => {
+  clearTimeout(holdTimer);
+});
+
+/* NORMAL CLICK → Flip */
+card.addEventListener("click", () => {
+  card.classList.toggle("flipped");
+});
+
 
     front.appendChild(img);
     inner.appendChild(front);
