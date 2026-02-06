@@ -130,3 +130,15 @@ body {
   max-width: 700px;
   margin: auto;
 }
+
+/* ===== Month Fade Animation ===== */
+.month {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s ease;
+}
+
+.month.show {
+  opacity: 1;
+  transform: translateY(0);
+}
