@@ -328,18 +328,3 @@ loadMonth("september", "sep", 17);
 loadMonth("october", "oct", 25);
 loadMonth("november", "nov", 60);
 loadMonth("december", "dec", 14);
-
-/* ===== Fade Animation Observer ===== */
-const monthSections = document.querySelectorAll(".month");
-
-const monthObserver = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("show");
-    }
-  });
-}, { threshold: 0.2 });
-
-monthSections.forEach(section => {
-  monthObserver.observe(section);
-});
