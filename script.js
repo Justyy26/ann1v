@@ -361,3 +361,16 @@ toggleBtn.addEventListener("click", () => {
     isPlaying = false;
   }
 });
+
+const music = document.getElementById("bgMusic");
+const toggleBtn = document.getElementById("musicToggle");
+
+window.addEventListener("load", () => {
+  music.muted = false;
+
+  music.play().then(() => {
+    toggleBtn.innerText = "🔇 Stop Music";
+  }).catch(() => {
+    console.log("Autoplay blocked");
+  });
+});
